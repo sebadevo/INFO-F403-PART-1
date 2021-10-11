@@ -1,0 +1,15 @@
+CO Euclid's algorithm CO
+
+begin
+  read(a) ;
+  read(b) ;
+  while not b = 0 do
+    c := b ;
+    while a+1 > b do     co computation of modulo
+      a := a-b
+    endwhile ;
+    b := a ;
+    a := c
+  endwhile ;
+  print(a)
+end

@@ -1,0 +1,54 @@
+token: begin	lexical unit: BEG
+token: read	lexical unit: READ
+token: (	lexical unit: LPAREN
+token: a	lexical unit: VARNAME
+token: )	lexical unit: RPAREN
+token: ;	lexical unit: SEMICOLON
+token: read	lexical unit: READ
+token: (	lexical unit: LPAREN
+token: b	lexical unit: VARNAME
+token: )	lexical unit: RPAREN
+token: ;	lexical unit: SEMICOLON
+token: while	lexical unit: WHILE
+token: b	lexical unit: VARNAME
+token: =	lexical unit: EQUAL
+token: not	lexical unit: NOT
+token: 0	lexical unit: NUMBER
+token: do	lexical unit: DO
+token: c	lexical unit: VARNAME
+token: :=	lexical unit: ASSIGN
+token: b	lexical unit: VARNAME
+token: ;	lexical unit: SEMICOLON
+token: while	lexical unit: WHILE
+token: a	lexical unit: VARNAME
+token: +	lexical unit: PLUS
+token: 1	lexical unit: NUMBER
+token: >	lexical unit: GREATER
+token: b	lexical unit: VARNAME
+token: do	lexical unit: DO
+token: a	lexical unit: VARNAME
+token: :=	lexical unit: ASSIGN
+token: a	lexical unit: VARNAME
+token: -	lexical unit: MINUS
+token: b	lexical unit: VARNAME
+token: endwhile	lexical unit: ENDWHILE
+token: ;	lexical unit: SEMICOLON
+token: b	lexical unit: VARNAME
+token: :=	lexical unit: ASSIGN
+token: a	lexical unit: VARNAME
+token: ;	lexical unit: SEMICOLON
+token: a	lexical unit: VARNAME
+token: :=	lexical unit: ASSIGN
+token: c	lexical unit: VARNAME
+token: endwhile	lexical unit: ENDWHILE
+token: ;	lexical unit: SEMICOLON
+token: print	lexical unit: PRINT
+token: (	lexical unit: LPAREN
+token: a	lexical unit: VARNAME
+token: )	lexical unit: RPAREN
+token: end	lexical unit: END
+
+Variables
+a	4
+b	5
+c	7
