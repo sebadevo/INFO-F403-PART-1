@@ -1,7 +1,0 @@
-Nous sommes en tp de compilation
-alors nous allons compiler {un jour !}
-Meanwhile we learn how to use jflex
-before building a toy compiler {soon !} and a full compiler
-Mais nous devons travailler
-{tout le quadrimestre !}
-car compiler c'est important.
