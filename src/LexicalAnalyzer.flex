@@ -1,6 +1,6 @@
 %%// Options of the scanner
 
-%class Lexer	//Name
+%class Main	//Name
 %unicode		//Use unicode
 %line         	//Use line counter (yyline variable)
 %column       	//Use character counter by line (yycolumn variable)
@@ -35,7 +35,7 @@ Numeric        = [0-9]
 AlphaNumeric   = {Alpha}|{Numeric}
 
 Sign           = [+-]
-Integer        = {Sign}?(([1-9][0-9]*)|0)
+Integer        = (([1-9][0-9]*)|0)
 Decimal        = \.[0-9]*
 Exponent       = [eE]{Integer}
 Real           = {Integer}{Decimal}?{Exponent}?
@@ -51,7 +51,7 @@ Identifier     = {Alpha}{AlphaNumeric}*
 
 
 "!"		        {System.out.println("NOT: " + yytext()); return new Symbol(LexicalUnit.NOT,yyline, yycolumn);}
-"="             {System;out;println("ASSIGN: " + yytext()); return new Symbol(LexicalUnit.ASSIGN,yyline, yycolumn);}
+"="             {System.out.println("ASSIGN: " + yytext()); return new Symbol(LexicalUnit.ASSIGN,yyline, yycolumn);}
 "=="	        {System.out.println("EQUAL: " + yytext()); return new Symbol(LexicalUnit.EQUAL,yyline, yycolumn);}
 "-"             {System.out.println("MINUS: " + yytext()); return new Symbol(LexicalUnit.MINUS,yyline, yycolumn);}
 "+"             {System.out.println("PLUS: " + yytext()); return new Symbol(LexicalUnit.PLUS,yyline, yycolumn);}
@@ -85,7 +85,7 @@ Identifier     = {Alpha}{AlphaNumeric}*
 "print"         {System.out.println("PRINT: " + yytext()); return new Symbol(LexicalUnit.PRINT,yyline, yycolumn);}
 "read"          {System.out.println("READ: " + yytext()); return new Symbol(LexicalUnit.READ,yyline, yycolumn);}
 "end"           {System.out.println("END: " + yytext()); return new Symbol(LexicalUnit.END,yyline, yycolumn);}
-"begin" 		{System.out.println("BEGIN: " + yytext()); return new Symbol(LexicalUnit.BEGIN,yyline, yycolumn);}
+"begin" 		{System.out.println("BEG: " + yytext()); return new Symbol(LexicalUnit.BEG,yyline, yycolumn);}
 
 // 
 
@@ -94,7 +94,7 @@ Identifier     = {Alpha}{AlphaNumeric}*
 {Identifier}  {System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn); }
 
 // NUMBER variable identifier
-{Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, new Double(yytext()));}
+{Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, new Integer(yytext()));}
 
 // States 
 
