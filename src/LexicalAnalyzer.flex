@@ -1,6 +1,6 @@
 %%// Options of the scanner
 
-%class Main	//Name
+%class Lexer	//Name
 %unicode		//Use unicode
 %line         	//Use line counter (yyline variable)
 %column       	//Use character counter by line (yycolumn variable)
