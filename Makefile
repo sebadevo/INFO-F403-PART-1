@@ -4,4 +4,4 @@ all:
 	jar cfe dist/Part1.jar Main -C bin .
 
 testing:
-		java -jar dist/Part1.jar test/euclid.co
+	java -jar dist/Part1.jar test/euclid.co

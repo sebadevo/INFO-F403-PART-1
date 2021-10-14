@@ -1,12 +1,12 @@
 %%// Options of the scanner
 
-%class Lexer5	//Name
+%class Main	//Name
 %unicode		//Use unicode
 %line         	//Use line counter (yyline variable)
 %column       	//Use character counter by line (yycolumn variable)
 %type Symbol  //Says that the return type is Symbol
 %standalone		//Standalone mode
-%xstates YYINITIAL, VARNAME_STATE,
+//%xstates YYINITIAL, VARNAME_STATE,
 
 
 //%init{
@@ -85,30 +85,18 @@ Identifier     = {Alpha}{AlphaNumeric}*
 "print"         {System.out.println("PRINT: " + yytext()); return new Symbol(LexicalUnit.PRINT,yyline, yycolumn);}
 "read"          {System.out.println("READ: " + yytext()); return new Symbol(LexicalUnit.READ,yyline, yycolumn);}
 "end"           {System.out.println("END: " + yytext()); return new Symbol(LexicalUnit.END,yyline, yycolumn);}
+"begin" 		{System.out.println("BEGIN: " + yytext()); return new Symbol(LexicalUnit.BEGIN,yyline, yycolumn);}
+
 // 
 
-// Decimal number in scientific notation
-{Real}			  {System.out.println("FLOAT: " + yytext()); return new Symbol(LexicalUnit.FLOAT,yyline, yycolumn, new Double(yytext()));}
 
 // VARNAME variable identifier
-{Identifier}  {System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn, new Double(yytext())); }
+{Identifier}  {System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn); }
 
 // NUMBER variable identifier
 {Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, new Double(yytext()));}
-
-//TO DO : BEG
-
-
-
-
-// VARNAME variable identifier
-{Identifier}  {System.out.println("VARNAME: " + yytext()); }
 
 // States 
 
 //Ignore other characters
 .             {}
-
-// DONE : VARNAME, NUMBER, ASSIGN, END(verif), SEMICOLON, ASSIGN, LPAREN, RPAREN, MINUS
-//PLUS, TIMES, DIVIDE, IF, THEN, ENDIF, ELSE, NOT, EQUAL, GREATER, SMALLER, WHILE, DO, FOR
-//FROM, BY, TO, ENFOR, PRINT, READ, END_OF_STREAM
