@@ -94,7 +94,7 @@ Identifier     = {Alpha}{AlphaNumeric}*
 {Identifier}  {System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn); }
 
 // NUMBER variable identifier
-{Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, new Integer(yytext()));}
+{Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, new Integer(valueOf(yytext())));}
 
 // States 
 
