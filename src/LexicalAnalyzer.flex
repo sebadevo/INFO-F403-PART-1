@@ -34,11 +34,11 @@ Alpha          = {AlphaUpperCase}|{AlphaLowerCase}
 Numeric        = [0-9]
 AlphaNumeric   = {Alpha}|{Numeric}
 
-Sign           = [+-]
+//Sign           = [+-]
 Integer        = (([1-9][0-9]*)|0)
-Decimal        = \.[0-9]*
-Exponent       = [eE]{Integer}
-Real           = {Integer}{Decimal}?{Exponent}?
+//Decimal        = \.[0-9]*
+//Exponent       = [eE]{Integer}
+//Real           = {Integer}{Decimal}?{Exponent}?
 Identifier     = {Alpha}{AlphaNumeric}*
 
 %%// Identification of tokens
@@ -94,7 +94,7 @@ Identifier     = {Alpha}{AlphaNumeric}*
 {Identifier}  {System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn); }
 
 // NUMBER variable identifier
-{Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, new Integer(valueOf(yytext())));}
+{Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, new Integer(yytext()));}
 
 // States 
 
