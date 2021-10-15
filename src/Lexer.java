@@ -5,7 +5,7 @@
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
-class Main {
+class Lexer {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -325,7 +325,7 @@ class Main {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  Main(java.io.Reader in) {
+  Lexer(java.io.Reader in) {
     this.zzReader = in;
   }
 
@@ -891,7 +891,7 @@ class Main {
    */
   public static void main(String[] argv) {
     if (argv.length == 0) {
-      System.out.println("Usage : java Main [ --encoding <name> ] <inputfile(s)>");
+      System.out.println("Usage : java Lexer [ --encoding <name> ] <inputfile(s)>");
     }
     else {
       int firstFilePos = 0;
@@ -908,11 +908,11 @@ class Main {
         }
       }
       for (int i = firstFilePos; i < argv.length; i++) {
-        Main scanner = null;
+        Lexer scanner = null;
         try {
           java.io.FileInputStream stream = new java.io.FileInputStream(argv[i]);
           java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);
-          scanner = new Main(reader);
+          scanner = new Lexer(reader);
           while ( !scanner.zzAtEOF ) scanner.yylex();
         }
         catch (java.io.FileNotFoundException e) {
