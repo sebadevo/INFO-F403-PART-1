@@ -30,7 +30,7 @@
 
 	public boolean checkExistingVariable(Symbol symbol){
 		for (Symbol variable : list_variable){
-            if (symbol.equals(variable)){
+            if (symbol.getValue().equals(variable.getValue())){
                 return true;
             }
         }
