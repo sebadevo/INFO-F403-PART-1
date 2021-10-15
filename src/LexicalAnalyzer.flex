@@ -13,13 +13,45 @@
 //    //partie du code qui s'execute avant le début du scanner
 //%init}
 //
-//%{
-//    //partie du code qui s'execute pendant le scan.
-//%}
+%{ //partie du code qui s'execute pendant le scan.
+
+	private java.util.ArrayList<Symbol> list_symbol = new java.util.ArrayList<Symbol>();
+	private java.util.ArrayList<Symbol> list_variable = new java.util.ArrayList<Symbol>();
+
+	public void addToSymbol(Symbol symbol){
+		list_symbol.add(symbol);
+	}
+
+	public void addToVariable(Symbol symbol){
+		if (!checkExistingVariable(symbol)){
+			list_variable.add(symbol);
+		}
+	}
+
+	public boolean checkExistingVariable(Symbol symbol){
+		for (Symbol variable : list_variable){
+            if (symbol.equals(variable)){
+                return true;
+            }
+        }
+        return false;
+	}
+
+
+
+%}
 //
-//%eof{
-//    partie du code qui s'execute apres le scanner.
-//%eof}
+%eof{
+	for (Symbol symbol : list_symbol){
+		System.out.println(symbol.toString());
+	}
+	System.out.println("\n");
+	System.out.println("Variables :");
+	for (Symbol symbol : list_variable){
+		System.out.println(symbol.getValue() + " " + java.util.Collections.frequency(list_symbol, symbol));
+	}
+
+%eof}
 
 // Return value of the program
 %eofval{
@@ -50,7 +82,7 @@ Identifier     = {Alpha}{AlphaNumeric}*
 //"<="	        {System.out.println("ELOWER: " + yytext()); return new Symbol(LexicalUnit.ELOWER,yyline, yycolumn);}
 
 
-"!"		        {System.out.println("NOT: " + yytext()); return new Symbol(LexicalUnit.NOT,yyline, yycolumn);}
+"not"		        {System.out.println("NOT: " + yytext()); return new Symbol(LexicalUnit.NOT,yyline, yycolumn);}
 "="             {System.out.println("ASSIGN: " + yytext()); return new Symbol(LexicalUnit.ASSIGN,yyline, yycolumn);}
 "=="	        {System.out.println("EQUAL: " + yytext()); return new Symbol(LexicalUnit.EQUAL,yyline, yycolumn);}
 "-"             {System.out.println("MINUS: " + yytext()); return new Symbol(LexicalUnit.MINUS,yyline, yycolumn);}
@@ -70,7 +102,7 @@ Identifier     = {Alpha}{AlphaNumeric}*
 
 
 // If/Else keywords
-"if"	        {System.out.println("IF: " + yytext()); return new Symbol(LexicalUnit.IF,yyline, yycolumn);}
+"if"	        {System.out.println("IF: " + yytext()); return new Symbol(LexicalUnit.IF,yyline, yycolumn, yytext());}
 "then"          {System.out.println("THEN: " + yytext()); return new Symbol(LexicalUnit.THEN,yyline, yycolumn);}
 "endif"         {System.out.println("ENDIF: " + yytext()); return new Symbol(LexicalUnit.ENDIF,yyline, yycolumn);}
 "else"          {System.out.println("ELSE: " + yytext()); return new Symbol(LexicalUnit.ELSE,yyline, yycolumn);}
@@ -85,16 +117,19 @@ Identifier     = {Alpha}{AlphaNumeric}*
 "print"         {System.out.println("PRINT: " + yytext()); return new Symbol(LexicalUnit.PRINT,yyline, yycolumn);}
 "read"          {System.out.println("READ: " + yytext()); return new Symbol(LexicalUnit.READ,yyline, yycolumn);}
 "end"           {System.out.println("END: " + yytext()); return new Symbol(LexicalUnit.END,yyline, yycolumn);}
-"begin" 		{System.out.println("BEG: " + yytext()); return new Symbol(LexicalUnit.BEG,yyline, yycolumn);}
+"begin" 		{addToSymbol(new Symbol(LexicalUnit.BEG,yyline, yycolumn,yytext()));
+	System.out.println("BEG: " + yytext()); return new Symbol(LexicalUnit.BEG,yyline, yycolumn);}
 
 // 
 
 
 // VARNAME variable identifier
-{Identifier}  {System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn); }
+{Identifier}  {addToSymbol(new Symbol(LexicalUnit.VARNAME,yyline, yycolumn,yytext()));
+			   addToVariable(new Symbol(LexicalUnit.VARNAME,yyline, yycolumn,yytext()));	
+	System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn); }
 
 // NUMBER variable identifier
-{Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, new Integer(yytext()));}
+{Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, yytext());}
 
 // States 
 
