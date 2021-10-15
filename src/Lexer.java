@@ -329,7 +329,8 @@ class Lexer {
 		list_symbol.add(symbol);
 	}
 
-	public void addToVariable(Symbol symbol){
+	public void addToVariableAndSymbol(Symbol symbol){
+		addToSymbol(symbol);
 		if (!checkExistingVariable(symbol)){
 			list_variable.add(symbol);
 		}
@@ -337,7 +338,7 @@ class Lexer {
 
 	public boolean checkExistingVariable(Symbol symbol){
 		for (Symbol variable : list_variable){
-            if (symbol.equals(variable)){
+            if (symbol.getValue().equals(variable.getValue())){
                 return true;
             }
         }
@@ -600,12 +601,19 @@ class Lexer {
       zzEOFDone = true;
     
 	for (Symbol symbol : list_symbol){
-		System.out.println(symbol.toString());
+		System.out.println(symbol);
 	}
 	System.out.println("\n");
 	System.out.println("Variables :");
-	for (Symbol symbol : list_variable){
-		System.out.println(symbol.getValue() + " " + java.util.Collections.frequency(list_symbol, symbol));
+	for (Symbol var_symbol : list_variable){
+		Integer i = 0;
+		for (Symbol symbol : list_symbol){
+			if (symbol.getValue().equals(var_symbol.getValue())){
+				i++;
+			}
+		}
+		System.out.println(var_symbol.getValue() + " " + i);
+		i = 0;
 	}
 
     }
@@ -829,8 +837,7 @@ class Lexer {
             // fall through
           case 45: break;
           case 14:
-            { addToSymbol(new Symbol(LexicalUnit.VARNAME,yyline, yycolumn,yytext()));
-			   addToVariable(new Symbol(LexicalUnit.VARNAME,yyline, yycolumn,yytext()));	
+            { addToVariableAndSymbol(new Symbol(LexicalUnit.VARNAME,yyline, yycolumn,yytext()));	
 	System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn);
             }
             // fall through

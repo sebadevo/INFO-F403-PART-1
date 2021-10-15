@@ -22,7 +22,8 @@
 		list_symbol.add(symbol);
 	}
 
-	public void addToVariable(Symbol symbol){
+	public void addToVariableAndSymbol(Symbol symbol){
+		addToSymbol(symbol);
 		if (!checkExistingVariable(symbol)){
 			list_variable.add(symbol);
 		}
@@ -43,12 +44,19 @@
 //
 %eof{
 	for (Symbol symbol : list_symbol){
-		System.out.println(symbol.toString());
+		System.out.println(symbol);
 	}
 	System.out.println("\n");
 	System.out.println("Variables :");
-	for (Symbol symbol : list_variable){
-		System.out.println(symbol.getValue() + " " + java.util.Collections.frequency(list_symbol, symbol));
+	for (Symbol var_symbol : list_variable){
+		Integer i = 0;
+		for (Symbol symbol : list_symbol){
+			if (symbol.getValue().equals(var_symbol.getValue())){
+				i++;
+			}
+		}
+		System.out.println(var_symbol.getValue() + " " + i);
+		i = 0;
 	}
 
 %eof}
@@ -82,7 +90,7 @@ Identifier     = {Alpha}{AlphaNumeric}*
 //"<="	        {System.out.println("ELOWER: " + yytext()); return new Symbol(LexicalUnit.ELOWER,yyline, yycolumn);}
 
 
-"not"		        {System.out.println("NOT: " + yytext()); return new Symbol(LexicalUnit.NOT,yyline, yycolumn);}
+"not"		    {System.out.println("NOT: " + yytext()); return new Symbol(LexicalUnit.NOT,yyline, yycolumn);}
 "="             {System.out.println("ASSIGN: " + yytext()); return new Symbol(LexicalUnit.ASSIGN,yyline, yycolumn);}
 "=="	        {System.out.println("EQUAL: " + yytext()); return new Symbol(LexicalUnit.EQUAL,yyline, yycolumn);}
 "-"             {System.out.println("MINUS: " + yytext()); return new Symbol(LexicalUnit.MINUS,yyline, yycolumn);}
@@ -124,8 +132,7 @@ Identifier     = {Alpha}{AlphaNumeric}*
 
 
 // VARNAME variable identifier
-{Identifier}  {addToSymbol(new Symbol(LexicalUnit.VARNAME,yyline, yycolumn,yytext()));
-			   addToVariable(new Symbol(LexicalUnit.VARNAME,yyline, yycolumn,yytext()));	
+{Identifier}  {addToVariableAndSymbol(new Symbol(LexicalUnit.VARNAME,yyline, yycolumn,yytext()));	
 	System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn); }
 
 // NUMBER variable identifier
