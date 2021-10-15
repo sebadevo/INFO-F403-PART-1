@@ -6,7 +6,7 @@
 %column       	//Use character counter by line (yycolumn variable)
 %type Symbol  //Says that the return type is Symbol
 %standalone		//Standalone mode
-//%xstates YYINITIAL, VARNAME_STATE,
+%xstates YYINITIAL, CO_STATE, co_STATE
 
 
 //%init{
@@ -49,14 +49,7 @@
 	System.out.println("\n");
 	System.out.println("Variables :");
 	for (Symbol var_symbol : list_variable){
-		Integer i = 0;
-		for (Symbol symbol : list_symbol){
-			if (symbol.getValue().equals(var_symbol.getValue())){
-				i++;
-			}
-		}
-		System.out.println(var_symbol.getValue() + " " + i);
-		i = 0;
+		System.out.println(var_symbol.getValue() + " " + var_symbol.getLine());
 	}
 
 %eof}
@@ -128,8 +121,19 @@ Identifier     = {Alpha}{AlphaNumeric}*
 "begin" 		{addToSymbol(new Symbol(LexicalUnit.BEG,yyline, yycolumn,yytext()));
 	System.out.println("BEG: " + yytext()); return new Symbol(LexicalUnit.BEG,yyline, yycolumn);}
 
-// 
+// States 
+<YYINITIAL> {
+	"CO" {yybegin(CO_STATE);}
+	"co" {yybegin(co_STATE);}
+}
 
+<CO_STATE> {
+	"CO" {yybegin(YYINITIAL);}
+}
+
+<co_STATE> {
+	"\r"?"\n" {yybegin(YYINITIAL);}
+}
 
 // VARNAME variable identifier
 {Identifier}  {addToVariableAndSymbol(new Symbol(LexicalUnit.VARNAME,yyline, yycolumn,yytext()));	
@@ -137,8 +141,6 @@ Identifier     = {Alpha}{AlphaNumeric}*
 
 // NUMBER variable identifier
 {Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, yytext());}
-
-// States 
 
 //Ignore other characters
 .             {}
