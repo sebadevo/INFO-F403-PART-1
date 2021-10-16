@@ -61,6 +61,8 @@ Alpha          = {AlphaUpperCase}|{AlphaLowerCase}
 Numeric        = [0-9]
 AlphaNumeric   = {Alpha}|{Numeric}
 
+EndOfLine      = "\r"?"\n"
+
 //Sign           = [+-]
 Integer        = (([1-9][0-9]*)|0)
 //Decimal        = \.[0-9]*
@@ -72,48 +74,43 @@ Identifier     = {Alpha}{AlphaNumeric}*
 
 // Relational operators
 
-//"!="	        {System.out.println("NOTEQUALS: " + yytext()); return new Symbol(LexicalUnit.NOTEQUALS,yyline, yycolumn);}
-//">="	        {System.out.println("EGREATER: " + yytext()); return new Symbol(LexicalUnit.EGREATER,yyline, yycolumn);}
-//"<="	        {System.out.println("ELOWER: " + yytext()); return new Symbol(LexicalUnit.ELOWER,yyline, yycolumn);}
-
-
-"not"		    {System.out.println("NOT: " + yytext()); return new Symbol(LexicalUnit.NOT,yyline, yycolumn);}
-"="             {System.out.println("ASSIGN: " + yytext()); return new Symbol(LexicalUnit.ASSIGN,yyline, yycolumn);}
-"=="	        {System.out.println("EQUAL: " + yytext()); return new Symbol(LexicalUnit.EQUAL,yyline, yycolumn);}
-"-"             {System.out.println("MINUS: " + yytext()); return new Symbol(LexicalUnit.MINUS,yyline, yycolumn);}
-"+"             {System.out.println("PLUS: " + yytext()); return new Symbol(LexicalUnit.PLUS,yyline, yycolumn);}
-"*"             {System.out.println("TIMES: " + yytext()); return new Symbol(LexicalUnit.TIMES,yyline, yycolumn);}
-":"             {System.out.println("DIVIDE: " + yytext()); return new Symbol(LexicalUnit.DIVIDE,yyline, yycolumn);}
-">"		        {System.out.println("GREATER: " + yytext()); return new Symbol(LexicalUnit.GREATER,yyline, yycolumn);}
-"<"		        {System.out.println("SMALLER: " + yytext()); return new Symbol(LexicalUnit.SMALLER,yyline, yycolumn);}
+"not"		    {addToSymbol(new Symbol(LexicalUnit.NOT,yyline, yycolumn,yytext()));}
+":="            {addToSymbol(new Symbol(LexicalUnit.ASSIGN,yyline, yycolumn,yytext()));}
+"="	            {addToSymbol(new Symbol(LexicalUnit.EQUAL,yyline, yycolumn,yytext()));}
+"-"             {addToSymbol(new Symbol(LexicalUnit.MINUS,yyline, yycolumn,yytext()));}
+"+"             {addToSymbol(new Symbol(LexicalUnit.PLUS,yyline, yycolumn,yytext()));}
+"*"             {addToSymbol(new Symbol(LexicalUnit.TIMES,yyline, yycolumn,yytext()));}
+":"             {addToSymbol(new Symbol(LexicalUnit.DIVIDE,yyline, yycolumn,yytext()));}
+">"		        {addToSymbol(new Symbol(LexicalUnit.GREATER,yyline, yycolumn,yytext()));}
+"<"		        {addToSymbol(new Symbol(LexicalUnit.SMALLER,yyline, yycolumn,yytext()));}
 
 
 //Others
 
-"("             {System.out.println("LPAREN: " + yytext()); return new Symbol(LexicalUnit.LPAREN,yyline, yycolumn);}
-")"             {System.out.println("RPAREN: " + yytext()); return new Symbol(LexicalUnit.RPAREN,yyline, yycolumn);}
-";"             {System.out.println("SEMICOLON: " + yytext()); return new Symbol(LexicalUnit.SEMICOLON,yyline, yycolumn);}
+"("             {addToSymbol(new Symbol(LexicalUnit.LPAREN,yyline, yycolumn,yytext()));}
+")"             {addToSymbol(new Symbol(LexicalUnit.RPAREN,yyline, yycolumn,yytext()));}
+";"             {addToSymbol(new Symbol(LexicalUnit.SEMICOLON,yyline, yycolumn,yytext()));}
 
 
 
 // If/Else keywords
-"if"	        {System.out.println("IF: " + yytext()); return new Symbol(LexicalUnit.IF,yyline, yycolumn, yytext());}
-"then"          {System.out.println("THEN: " + yytext()); return new Symbol(LexicalUnit.THEN,yyline, yycolumn);}
-"endif"         {System.out.println("ENDIF: " + yytext()); return new Symbol(LexicalUnit.ENDIF,yyline, yycolumn);}
-"else"          {System.out.println("ELSE: " + yytext()); return new Symbol(LexicalUnit.ELSE,yyline, yycolumn);}
-"while"         {System.out.println("WHILE: " + yytext()); return new Symbol(LexicalUnit.WHILE,yyline, yycolumn);}
-"do"            {System.out.println("DO: " + yytext()); return new Symbol(LexicalUnit.DO,yyline, yycolumn);}
-"endwhile"      {System.out.println("ENDWHILE: " + yytext()); return new Symbol(LexicalUnit.ENDWHILE,yyline, yycolumn);}
-"for"           {System.out.println("FOR: " + yytext()); return new Symbol(LexicalUnit.FOR,yyline, yycolumn);}
-"from"          {System.out.println("FROM: " + yytext()); return new Symbol(LexicalUnit.FROM,yyline, yycolumn);}
-"by"            {System.out.println("BY: " + yytext()); return new Symbol(LexicalUnit.BY,yyline, yycolumn);}
-"to"            {System.out.println("TO: " + yytext()); return new Symbol(LexicalUnit.TO,yyline, yycolumn);}
-"endfor"        {System.out.println("ENDFOR: " + yytext()); return new Symbol(LexicalUnit.ENDFOR,yyline, yycolumn);}
-"print"         {System.out.println("PRINT: " + yytext()); return new Symbol(LexicalUnit.PRINT,yyline, yycolumn);}
-"read"          {System.out.println("READ: " + yytext()); return new Symbol(LexicalUnit.READ,yyline, yycolumn);}
-"end"           {System.out.println("END: " + yytext()); return new Symbol(LexicalUnit.END,yyline, yycolumn);}
-"begin" 		{addToSymbol(new Symbol(LexicalUnit.BEG,yyline, yycolumn,yytext()));
-	System.out.println("BEG: " + yytext()); return new Symbol(LexicalUnit.BEG,yyline, yycolumn);}
+"if"	        {addToSymbol(new Symbol(LexicalUnit.IF,yyline, yycolumn,yytext()));}
+"then"          {addToSymbol(new Symbol(LexicalUnit.THEN,yyline, yycolumn,yytext()));}
+"endif"         {addToSymbol(new Symbol(LexicalUnit.ENDIF,yyline, yycolumn,yytext()));}
+"else"          {addToSymbol(new Symbol(LexicalUnit.ELSE,yyline, yycolumn,yytext()));}
+"while"         {addToSymbol(new Symbol(LexicalUnit.WHILE,yyline, yycolumn,yytext()));}
+"do"            {addToSymbol(new Symbol(LexicalUnit.DO,yyline, yycolumn,yytext()));}
+"endwhile"      {addToSymbol(new Symbol(LexicalUnit.ENDWHILE,yyline, yycolumn,yytext()));}
+"for"           {addToSymbol(new Symbol(LexicalUnit.FOR,yyline, yycolumn,yytext()));}
+"from"          {addToSymbol(new Symbol(LexicalUnit.FROM,yyline, yycolumn,yytext()));}
+"by"            {addToSymbol(new Symbol(LexicalUnit.BY,yyline, yycolumn,yytext()));}
+"to"            {addToSymbol(new Symbol(LexicalUnit.TO,yyline, yycolumn,yytext()));}
+"endfor"        {addToSymbol(new Symbol(LexicalUnit.ENDFOR,yyline, yycolumn,yytext()));}
+"print"         {addToSymbol(new Symbol(LexicalUnit.PRINT,yyline, yycolumn,yytext()));}
+"read"          {addToSymbol(new Symbol(LexicalUnit.READ,yyline, yycolumn,yytext()));}
+"end"           {addToSymbol(new Symbol(LexicalUnit.END,yyline, yycolumn,yytext()));}	
+"begin" 		{addToSymbol(new Symbol(LexicalUnit.BEG,yyline, yycolumn,yytext()));}
+
 
 // States 
 <YYINITIAL> {
@@ -122,19 +119,21 @@ Identifier     = {Alpha}{AlphaNumeric}*
 }
 
 <CO_STATE> {
+	[^"CO"] {}
 	"CO" {yybegin(YYINITIAL);}
 }
 
 <co_STATE> {
-	"\r"?"\n" {yybegin(YYINITIAL);}
+	[^"\r"?"\n"] {}
+	{EndOfLine} {yybegin(YYINITIAL);}
 }
 
 // VARNAME variable identifier
-{Identifier}  {addToVariableAndSymbol(new Symbol(LexicalUnit.VARNAME, yyline, yycolumn, yytext()));	
-	System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline,yycolumn); }
+{Identifier}  {addToVariableAndSymbol(new Symbol(LexicalUnit.VARNAME, yyline, yycolumn, yytext()));}
 
 // NUMBER variable identifier
-{Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, yytext());}
+{Integer}  {addToSymbol(new Symbol(LexicalUnit.NUMBER,yyline, yycolumn,yytext()));}
 
 //Ignore other characters
-.             {}
+. | {EndOfLine}            {}
+
