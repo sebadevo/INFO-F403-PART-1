@@ -353,9 +353,6 @@ class Lexer {
 	}
 
 
-
-
-
   /**
    * Creates a new scanner
    *
@@ -837,8 +834,8 @@ class Lexer {
             // fall through
           case 48: break;
           case 14:
-            { addToVariableAndSymbol(new Symbol(LexicalUnit.VARNAME,yyline, yycolumn,yytext()));	
-	System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn);
+            { addToVariableAndSymbol(new Symbol(LexicalUnit.VARNAME, yyline, yycolumn, yytext()));	
+	System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline,yycolumn);
             }
             // fall through
           case 49: break;

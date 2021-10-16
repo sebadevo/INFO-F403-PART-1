@@ -9,10 +9,6 @@
 %xstates YYINITIAL, CO_STATE, co_STATE
 
 
-//%init{
-//    //partie du code qui s'execute avant le début du scanner
-//%init}
-//
 %{ //partie du code qui s'execute pendant le scan.
 
 	private java.util.ArrayList<Symbol> list_symbol = new java.util.ArrayList<Symbol>();
@@ -37,11 +33,9 @@
         }
         return false;
 	}
-
-
-
 %}
-//
+
+// 
 %eof{
 	for (Symbol symbol : list_symbol){
 		System.out.println(symbol);
@@ -136,8 +130,8 @@ Identifier     = {Alpha}{AlphaNumeric}*
 }
 
 // VARNAME variable identifier
-{Identifier}  {addToVariableAndSymbol(new Symbol(LexicalUnit.VARNAME,yyline, yycolumn,yytext()));	
-	System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn); }
+{Identifier}  {addToVariableAndSymbol(new Symbol(LexicalUnit.VARNAME, yyline, yycolumn, yytext()));	
+	System.out.println("VARNAME: " + yytext()); return new Symbol(LexicalUnit.VARNAME,yyline,yycolumn); }
 
 // NUMBER variable identifier
 {Integer}  {System.out.println("NUMBER: " + yytext()); return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, yytext());}
