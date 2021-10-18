@@ -1,0 +1,26 @@
+CO
+ Euclid's algorithm 
+ Hello world
+CO
+
+begin
+    for a < b do
+        c := -5
+        if c = b then
+            c := b + a ;
+            d := 6;     co we sticked a semicolon
+            print(d);
+        endif
+    endfor
+    e := c * b ;
+    f := c*b; CO all is sticked together co check if the co is ignored CO
+    if f not = e then 
+        c : by a ;
+    else then
+        g from alphabet ;
+    endif
+    while a-3 < b do
+        a to r
+    endwhile ;
+end
+

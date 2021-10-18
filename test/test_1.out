@@ -1,0 +1,87 @@
+token: begin    lexical unit: BEG
+token: for      lexical unit: FOR
+token: a        lexical unit: VARNAME
+token: <        lexical unit: SMALLER
+token: b        lexical unit: VARNAME
+token: do       lexical unit: DO
+token: c        lexical unit: VARNAME
+token: :=       lexical unit: ASSIGN
+token: -        lexical unit: MINUS
+token: 5        lexical unit: NUMBER
+token: if       lexical unit: IF
+token: c        lexical unit: VARNAME
+token: =        lexical unit: EQUAL
+token: b        lexical unit: VARNAME
+token: then     lexical unit: THEN
+token: c        lexical unit: VARNAME
+token: :=       lexical unit: ASSIGN
+token: b        lexical unit: VARNAME
+token: +        lexical unit: PLUS
+token: a        lexical unit: VARNAME
+token: ;        lexical unit: SEMICOLON
+token: d        lexical unit: VARNAME
+token: :=       lexical unit: ASSIGN
+token: 6        lexical unit: NUMBER
+token: ;        lexical unit: SEMICOLON
+token: print    lexical unit: PRINT
+token: (        lexical unit: LPAREN
+token: d        lexical unit: VARNAME
+token: )        lexical unit: RPAREN
+token: ;        lexical unit: SEMICOLON
+token: endif    lexical unit: ENDIF
+token: endfor   lexical unit: ENDFOR
+token: e        lexical unit: VARNAME
+token: :=       lexical unit: ASSIGN
+token: c        lexical unit: VARNAME
+token: *        lexical unit: TIMES
+token: b        lexical unit: VARNAME
+token: ;        lexical unit: SEMICOLON
+token: f        lexical unit: VARNAME
+token: :=       lexical unit: ASSIGN
+token: c        lexical unit: VARNAME
+token: *        lexical unit: TIMES
+token: b        lexical unit: VARNAME
+token: ;        lexical unit: SEMICOLON
+token: if       lexical unit: IF
+token: f        lexical unit: VARNAME
+token: not      lexical unit: NOT
+token: =        lexical unit: EQUAL
+token: e        lexical unit: VARNAME
+token: then     lexical unit: THEN
+token: c        lexical unit: VARNAME
+token: :        lexical unit: DIVIDE
+token: by       lexical unit: BY
+token: a        lexical unit: VARNAME
+token: ;        lexical unit: SEMICOLON
+token: else     lexical unit: ELSE
+token: then     lexical unit: THEN
+token: g        lexical unit: VARNAME
+token: from     lexical unit: FROM
+token: alphabet lexical unit: VARNAME
+token: ;        lexical unit: SEMICOLON
+token: endif    lexical unit: ENDIF
+token: while    lexical unit: WHILE
+token: a        lexical unit: VARNAME
+token: -        lexical unit: MINUS
+token: 3        lexical unit: NUMBER
+token: <        lexical unit: SMALLER
+token: b        lexical unit: VARNAME
+token: do       lexical unit: DO
+token: a        lexical unit: VARNAME
+token: to       lexical unit: TO
+token: r        lexical unit: VARNAME
+token: endwhile lexical unit: ENDWHILE
+token: ;        lexical unit: SEMICOLON
+token: end      lexical unit: END
+
+
+Variables :
+a 7
+b 7
+c 8
+d 11
+e 15
+f 16
+g 20
+alphabet 20
+r 23
