@@ -74,7 +74,7 @@
 
 // Return value of the program
 %eofval{
-	return new Symbol(LexicalUnit.END_OF_STREAM, yyline, yycolumn);
+	return new Symbol(LexicalUnit.END_OF_STREAM, yyline, yycolumn, yytext());
 %eofval}
 
 
