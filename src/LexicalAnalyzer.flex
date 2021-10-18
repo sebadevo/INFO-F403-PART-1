@@ -9,15 +9,25 @@
 %xstates YYINITIAL, CO_STATE, co_STATE
 
 
-%{ //partie du code qui s'execute pendant le scan.
+// Code that will be executed during the scan.
+%{ 
 
 	private java.util.ArrayList<Symbol> list_symbol = new java.util.ArrayList<Symbol>();
 	private java.util.ArrayList<Symbol> list_variable = new java.util.ArrayList<Symbol>();
 
+	/**
+	 * Adds the symbol to the list of all symbols.
+	 * @param symbol the symbol detected in the text
+	 */
 	public void addToSymbol(Symbol symbol){
 		list_symbol.add(symbol);
 	}
 
+	/**
+	 * Adds the symbol to the list of all symbols and to the list of variable if the value 
+	 * of the symbol isn't already in this list.
+	 * @param symbol the symbol (only a VARNAME symbol in this case) detected in the text
+	 */
 	public void addToVariableAndSymbol(Symbol symbol){
 		addToSymbol(symbol);
 		if (!checkExistingVariable(symbol)){
@@ -25,6 +35,12 @@
 		}
 	}
 
+	/**
+	 * Checks if the symbol is already in the list of variables, returns true if the symbol
+	 * is detected in the list.
+	 * @param symbol the symbol detected in the text
+	 * @return boolean
+	 */
 	public boolean checkExistingVariable(Symbol symbol){
 		for (Symbol variable : list_variable){
             if (symbol.getValue().equals(variable.getValue())){
@@ -35,45 +51,48 @@
 	}
 %}
 
-// 
+
+// Code that will be executed after the scan
 %eof{
+	
+	// prints all the tokens
 	for (Symbol symbol : list_symbol){
-		System.out.println(symbol);
+		System.out.println(symbol); 
 	}
-	System.out.println("\n");
+
+	// code for aesthetics
+	System.out.println("\r");
 	System.out.println("Variables :");
+
+	// prints the line of first appearance of each variable
 	for (Symbol var_symbol : list_variable){
-		System.out.println(var_symbol.getValue() + " " + var_symbol.getLine());
+		System.out.println(var_symbol.getValue() + " " + var_symbol.getLine()); 
 	}
 
 %eof}
+
 
 // Return value of the program
 %eofval{
 	return new Symbol(LexicalUnit.END_OF_STREAM, yyline, yycolumn);
 %eofval}
 
-// Extended Regular Expressions
 
+// Extended Regular Expressions
 AlphaUpperCase = [A-Z]
 AlphaLowerCase = [a-z]
 Alpha          = {AlphaUpperCase}|{AlphaLowerCase}
 Numeric        = [0-9]
 AlphaNumeric   = {Alpha}|{Numeric}
-
 EndOfLine      = "\r"?"\n"
 
-//Sign           = [+-]
 Integer        = (([1-9][0-9]*)|0)
-//Decimal        = \.[0-9]*
-//Exponent       = [eE]{Integer}
-//Real           = {Integer}{Decimal}?{Exponent}?
 Identifier     = {Alpha}{AlphaNumeric}*
+
 
 %%// Identification of tokens
 
 // Relational operators
-
 "not"		    {addToSymbol(new Symbol(LexicalUnit.NOT,yyline, yycolumn,yytext()));}
 ":="            {addToSymbol(new Symbol(LexicalUnit.ASSIGN,yyline, yycolumn,yytext()));}
 "="	            {addToSymbol(new Symbol(LexicalUnit.EQUAL,yyline, yycolumn,yytext()));}
@@ -84,16 +103,12 @@ Identifier     = {Alpha}{AlphaNumeric}*
 ">"		        {addToSymbol(new Symbol(LexicalUnit.GREATER,yyline, yycolumn,yytext()));}
 "<"		        {addToSymbol(new Symbol(LexicalUnit.SMALLER,yyline, yycolumn,yytext()));}
 
-
-//Others
-
+// Others
 "("             {addToSymbol(new Symbol(LexicalUnit.LPAREN,yyline, yycolumn,yytext()));}
 ")"             {addToSymbol(new Symbol(LexicalUnit.RPAREN,yyline, yycolumn,yytext()));}
 ";"             {addToSymbol(new Symbol(LexicalUnit.SEMICOLON,yyline, yycolumn,yytext()));}
 
-
-
-// If/Else keywords
+// If-for-while keywords
 "if"	        {addToSymbol(new Symbol(LexicalUnit.IF,yyline, yycolumn,yytext()));}
 "then"          {addToSymbol(new Symbol(LexicalUnit.THEN,yyline, yycolumn,yytext()));}
 "endif"         {addToSymbol(new Symbol(LexicalUnit.ENDIF,yyline, yycolumn,yytext()));}
